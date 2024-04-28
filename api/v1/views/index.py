@@ -4,9 +4,12 @@
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
-
-
-storage = storage()
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
+from models.amenity import Amenity
 
 
 @app_views.route('/status')
@@ -14,10 +17,19 @@ def status():
     return jsonify({"status": "OK"})
 
 
-@app.route('/api/v1/stats', methods='GET')
+@app.route('/api/v1/stats')
 def stats():
     stat = {}
-    for clss, cls in storage.classes.items():
+    classes = {
+               "amenities": Amenity,
+               "cities": City,
+               "places": Place,
+               "reviews": Review,
+               "states": State,
+               "users": User
+             }
+
+    for clss, cls in classes.items():
         count = storage.count(cls)
-        stats[clss] = count
+        stat[clss] = count
     return jsonify(stat)
