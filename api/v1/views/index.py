@@ -17,16 +17,16 @@ def status():
     return jsonify({"status": "OK"})
 
 
-@app.route('/api/v1/stats')
+@app_views.route('/stats')
 def stats():
     stat = {}
     classes = {
-               "amenities": Amenity,
-               "cities": City,
-               "places": Place,
-               "reviews": Review,
-               "states": State,
-               "users": User
+               'amenities': Amenity,
+               'cities': City,
+               'places': Place,
+               'reviews': Review,
+               'states': State,
+               'users': User
              }
 
     for clss, cls in classes.items():

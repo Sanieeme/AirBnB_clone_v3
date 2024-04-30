@@ -23,6 +23,6 @@ if __name__ == "__main__":
     import os
 
     h = os.environ.get('HBNB_API_HOST', '0.0.0.0')
-    p = int(os.environ.get('HBNB_API_PORT', 5001))
+    p = int(os.environ.get('HBNB_API_PORT', 5000))
 
     app.run(host=h, port=p, threaded=True)
