@@ -18,7 +18,7 @@ def get_amenities():
 def get_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
-        abort(404)
+        return abort(404)
     return jsonify(amenity.to_dict())
 
 
@@ -26,7 +26,7 @@ def get_amenity(amenity_id):
 def delete_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
-        abort(404)
+        return abort(404)
     storage.delete(amenity)
     storage.save()
     return jsonify({}), 200
@@ -36,9 +36,9 @@ def delete_amenity(amenity_id):
 def create_amenity():
     data = request.get_json()
     if not data:
-        abort(400, "Not a JSON")
+        return abort(400, "Not a JSON")
     if 'name' not in data:
-        abort(400, "Missing name")
+        return abort(400, "Missing name")
     new_amenity = Amenity(**data)
     new_amenity.save()
     return jsonify(new_amenity.to_dict()), 201
@@ -48,10 +48,10 @@ def create_amenity():
 def update_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
-        abort(404)
+        return abort(404)
     data = request.get_json()
     if not data:
-        abort(400, "Not a JSON")
+        return abort(400, "Not a JSON")
 
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
