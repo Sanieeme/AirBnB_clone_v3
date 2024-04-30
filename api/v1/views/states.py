@@ -21,7 +21,11 @@ def get(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route(
+        '/states/<state_id>',
+        strict_slashes=False,
+        methods=['DELETE']
+        )
 def delete(state_id):
     state = storage.get(State, state_id)
     if state:
@@ -35,9 +39,9 @@ def delete(state_id):
 def post():
     req = request.get_json()
     if not req:
-        abort(404, 'Not a JSON')
+        return jsonify({"error": "Not a JSON"}), 400
     if 'name' not in req:
-        abort(404, 'Missing name')
+        return jsonsonify({"error": "Missing name"}), 400
     state = State(**req)
     state.save()
     return jsonify(state.to_dict()), 201
