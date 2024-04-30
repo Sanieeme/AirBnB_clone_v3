@@ -54,7 +54,7 @@ def put(state_id):
         abort(404)
     req = request.get_json()
     if not req:
-        abort(400, 'Not a JSON')
+        return jsonify({"error": "Not a JSON"})
     state.name = req['name']
     storage.save()
     return jsonify(state.to_dict()), 200
