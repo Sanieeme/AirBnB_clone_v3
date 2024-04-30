@@ -16,6 +16,7 @@ from models.amenity import Amenity
 def status():
     return jsonify({"status": "OK"})
 
+
 @app_views.route('/stats')
 def stats():
     stat = {}
@@ -24,8 +25,7 @@ def stats():
                'places': Place,
                'reviews': Review,
                'states': State,
-               'users': User
-             }
+               'users': User}
 
     for clss, cls in classes.items():
         count = storage.count(cls)
