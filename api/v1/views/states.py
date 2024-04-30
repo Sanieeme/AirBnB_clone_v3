@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""
+"""
 from models import storage
 from models.state import State
 from api.v1.views import app_views
@@ -11,7 +13,7 @@ def all():
     return jsonify([state.to_dict() for state in states.values()])
 
 
-@app_views.route('/states/<state_id>')
+@app_views.route('/states/<state_id>', strict_slashes=False)
 def get(state_id):
     state = storage.get(State, state_id)
     if not state:
@@ -19,7 +21,7 @@ def get(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
 def delete(state_id):
     state = storage.get(State, state_id)
     if state:
@@ -41,7 +43,7 @@ def post():
     return jsonify(state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['PUT'])
 def put(state_id):
     state = storage.get(State, state_id)
     if not state:
