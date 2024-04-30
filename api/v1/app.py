@@ -4,7 +4,7 @@ return the status of your API
 """
 
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask import Blueprint
 from models import storage
 from api.v1.views import app_views
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     h = os.environ.get('HBNB_API_HOST', '0.0.0.0')
     p = int(os.environ.get('HBNB_API_PORT', 5000))
 
-    app.run(host=h, port=p, threaded=True)
+    app.run(host=h, port=p, threaded=True, debug=True)
