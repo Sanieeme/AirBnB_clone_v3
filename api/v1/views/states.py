@@ -16,7 +16,7 @@ def all():
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get(state_id):
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     return jsonify(state.to_dict())
 
@@ -41,7 +41,7 @@ def post():
     if not req or request.content_type != 'application/json':
         abort(400, {'Not a JSON'})
     if 'name' not in req:
-        abort(400, {'Missing name'})
+        abort(400, 'Missing name')
     state = State(**req)
     state.save()
     return jsonify(state.to_dict()), 201
@@ -54,7 +54,7 @@ def put(state_id):
         abort(404)
     req = request.get_json()
     if not req or request.content_type != 'application/json':
-        abort(400, {'Not a JSON'})
+        abort(400, 'Not a JSON')
     for key, value in req.items():
         if key not in ["id", "created_at", "updated_at"]:
             setattr(state, key, value)
