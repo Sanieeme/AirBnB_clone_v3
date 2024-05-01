@@ -14,7 +14,7 @@ def all():
     return jsonify([state.to_dict() for state in states.values()])
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
 def get(state_id):
     """Retrieves a State object"""
     state = storage.get(State, state_id)
@@ -24,7 +24,7 @@ def get(state_id):
 
 
 @app_views.route(
-        '/states/<state_id>',
+        '/states/<string:state_id>',
         strict_slashes=False,
         methods=['DELETE']
         )
