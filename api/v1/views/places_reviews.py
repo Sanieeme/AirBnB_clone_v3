@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Views for the reviews objects 
+"""Views for the reviews objects
 """
 from models import storage
 from models.review import Review
@@ -38,6 +38,7 @@ def delete_review(review_id):
         return jsonify({}), 200
     abort(404)
 
+
 @app_views.route('/places/<string:place_id>/reviews', strict_slashes=False,
                  methods=['POST'])
 def post_review(place_id):
@@ -61,6 +62,7 @@ def post_review(place_id):
     review.save()
     return jsonify(review.to_dict()), 201
 
+
 @app_views.route('/reviews/<review_id>', methods=['PUT'])
 def put_review(review_id):
     """Updates a Review object"""
@@ -75,4 +77,4 @@ def put_review(review_id):
         if key not in excluded:
             setattr(review, key, val)
     storage.save()
-    return jsonify(review.to_dict()), 200      
+    return jsonify(review.to_dict()), 200
