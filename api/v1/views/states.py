@@ -50,10 +50,10 @@ def post():
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['PUT'])
 def put(state_id):
     state = storage.get(State, state_id)
-    if state is None:
+    if not state:
         abort(404)
     req = request.get_json()
-    if not req:
+    if not req or request.content_type != 'application/json':
         abort(400, {'Not a JSON'})
     for key, value in req.items():
         if key not in ["id", "created_at", "updated_at"]:
