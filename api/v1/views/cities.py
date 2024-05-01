@@ -13,7 +13,7 @@ from models.state import State
 def get_cities(state_id):
     """get city information for all cities in a specified state"""
     state = storage.get(State, state_id)
-    if not state:
+    if state is None:
         abort(404)
     return jsonify([city.to_dict() for city in state.cities])
 
@@ -23,7 +23,7 @@ def get_cities(state_id):
 def get_city(city_id):
     """get city information for specified city"""
     city = storage.get(City, city_id)
-    if not city:
+    if city is None:
         abort(404)
     return jsonify(city.to_dict())
 
